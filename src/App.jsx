@@ -2,27 +2,22 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './components/Auth/login';
 import SignupPage from './components/Auth/SignupPage';
-import SellerPage from './pages/SellerPage';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar'; // Global Navbar
 import SellerRegistration from './components/Auth/SellerRegistration';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
 
 function App() {
   return (
-    <Router> {/* Wrapping everything inside the Router */}
-      <Navbar />
-      <div className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path='/Signup' element={<SignupPage/>}/>
-          <Route path="/seller-registration" element={<SellerRegistration />} />
-          <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/seller" element={<SellerPage />} />
-          <Route path="/seller-dashboard" element={<SellerDashboard />} />
-        </Routes>
-      </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navbar />} />
+        <Route path="/login" element={<Navbar />} />
+        <Route path="/signup" element={<Navbar />} />
+        <Route path="/seller-registration" element={<Navbar />} />
+        <Route path="/user-dashboard" element={<Navbar />} />
+        <Route path="/seller-dashboard" element={<SellerDashboard />} />
+      </Routes>
     </Router>
   );
 }
