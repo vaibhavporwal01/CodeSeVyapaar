@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
-  const [active, setActive] = useState('Dashboard');
+  const location = useLocation(); // Get current route
+  const [active, setActive] = useState(location.pathname); // Set active state based on the current route
 
   const menuItems = [
     { name: 'Dashboard', icon: '📊', path: '/dashboard' },
@@ -16,18 +17,21 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sidebar-container">
-      <ul>
+    <div className="sidebar-container bg-white h-screen w-60 shadow-lg">
+      <ul className="menu-list p-4 space-y-2">
         {menuItems.map((item) => (
-          <Link
-            to={item.path}
-            key={item.name}
-            className={`sidebar-item ${active === item.name ? 'active' : ''}`}
-            onClick={() => setActive(item.name)}
-          >
-            <span className="icon">{item.icon}</span>
-            <span className="label">{item.name}</span>
-          </Link>
+          <li key={item.name}>
+            <Link
+              to={item.path}
+              className={`sidebar-item flex items-center space-x-3 p-2 rounded-lg ${
+                active === item.path ? 'active' : 'hover:bg-gray-200'
+              }`}
+              onClick={() => setActive(item.path)}
+            >
+              <span className="icon text-lg">{item.icon}</span>
+              <span className="label">{item.name}</span>
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

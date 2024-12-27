@@ -9,13 +9,14 @@ const SellerDashboard = () => {
       {/* Include the custom Seller Navbar */}
       <SellerNavbar />
 
+      <div className="dashboard-layout flex"></div>
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
       <div className="flex-1 p-8 mt-16 space-y-6">
         <h2 className="text-3xl font-bold mb-6">Welcome to Your Seller Dashboard</h2>
-
+        <div className="dashboard-content flex-1 bg-gray-100 p-6"></div>
         <div className="dashboard-content space-y-6">
           <p className="text-lg">
             Here you can manage your products, view orders, and track your sales.

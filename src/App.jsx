@@ -17,6 +17,7 @@ function App() {
         <Route path="/seller-registration" element={<Navbar />} />
         <Route path="/user-dashboard" element={<Navbar />} />
         <Route path="/seller-dashboard" element={<SellerDashboard />} />
+        <Route path="/dashboard" element={<SellerDashboard />} />
       </Routes>
     </Router>
   );
