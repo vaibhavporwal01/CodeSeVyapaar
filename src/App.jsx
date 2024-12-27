@@ -10,12 +10,13 @@ import SellerDashboard from './components/Dashboard/SellerDashboard';
 function App() {
   return (
     <Router>
+      <Navbar /> {/* Global Navbar placed outside Routes */}
       <Routes>
-        <Route path="/" element={<Navbar />} />
-        <Route path="/login" element={<Navbar />} />
-        <Route path="/signup" element={<Navbar />} />
-        <Route path="/seller-registration" element={<Navbar />} />
-        <Route path="/user-dashboard" element={<Navbar />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/seller-registration" element={<SellerRegistration />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/seller-dashboard" element={<SellerDashboard />} />
       </Routes>
     </Router>
