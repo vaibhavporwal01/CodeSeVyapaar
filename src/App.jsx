@@ -6,6 +6,7 @@ import SellerPage from './pages/SellerPage';
 import Navbar from './components/Navbar';
 import SellerRegistration from './components/Auth/SellerRegistration';
 import UserDashboard from './components/Dashboard/UserDashboard';
+import SellerDashboard from './components/Dashboard/SellerDashboard';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/seller-registration" element={<SellerRegistration />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/seller" element={<SellerPage />} />
+          <Route path="/seller-dashboard" element={<SellerDashboard />} />
         </Routes>
       </div>
     </Router>
