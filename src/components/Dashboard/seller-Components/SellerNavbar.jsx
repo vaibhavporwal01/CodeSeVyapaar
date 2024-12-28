@@ -8,7 +8,7 @@ const SellerNavbar = () => {
   return (
     <div className="bg-white text-gray-800 flex items-center justify-between px-8 py-4 shadow-md fixed top-0 w-full z-10">
       {/* Left side: Logo and Search Bar */}
-      <div className="flex items-center space-x-8">
+      <div className="flex items-center space-x-8 w-full lg:w-auto">
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <img
@@ -24,7 +24,7 @@ const SellerNavbar = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="relative">
+        <div className="relative hidden lg:block">
           <input
             type="text"
             placeholder="Search..."
@@ -37,13 +37,21 @@ const SellerNavbar = () => {
       </div>
 
       {/* Right side: Add Product Button, Notification, and Profile */}
-      <div className="flex items-center space-x-6">
+      <div className="flex items-center space-x-6 lg:space-x-4">
         {/* Add Product Button */}
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 hidden sm:block"
           onClick={() => navigate('/add-product')}
         >
           Add New Product
+        </button>
+
+        {/* Mobile View: Plus sign for Add Product */}
+        <button
+          className="bg-blue-600 text-white text-xl rounded-full hover:bg-blue-700 transition-colors duration-200 sm:hidden"
+          onClick={() => navigate('/add-product')}
+        >
+          +
         </button>
 
         {/* Notification Icon */}
@@ -65,6 +73,13 @@ const SellerNavbar = () => {
           </div>
           <span className="text-sm font-medium text-gray-600">ASIN</span>
         </div>
+      </div>
+
+      {/* Mobile View: Hamburger Menu */}
+      <div className="lg:hidden flex items-center space-x-4">
+        <button className="text-gray-600 text-2xl">
+          &#9776; {/* Hamburger icon */}
+        </button>
       </div>
     </div>
   );
