@@ -2,25 +2,50 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const RevenueCard = ({ title, apiEndpoint, color, icon }) => {
-  const [value, setValue] = useState(0);
-  const [change, setChange] = useState('0%');
-  const [trend, setTrend] = useState('');
+  // Sample data for testing
+  const sampleData = {
+    value: 5000,  // Sample revenue value
+    change: '-10%'  // Sample change percentage
+  };
+
+  const [value, setValue] = useState(sampleData.value);  // Set initial value to sample value
+  const [change, setChange] = useState(sampleData.change);  // Set initial change to sample change
+  const [trend, setTrend] = useState('up');  // Assume up for testing (since change is +10%)
+  const [loading, setLoading] = useState(false);  // Disable loading state for this static data
 
   useEffect(() => {
     const fetchData = async () => {
+      // Simulating an API call with the sample data
       try {
-        const response = await axios.get(apiEndpoint);
-        const { value, change } = response.data;
-        setValue(value);
-        setChange(change);
-        setTrend(change.includes('-') ? 'down' : 'up');
+        // You can simulate an API call here with `axios` or just use static data.
+        // const response = await axios.get(apiEndpoint); // This is a real API call.
+        console.log("Simulated API Response:", sampleData); // Debugging line
+        setValue(sampleData.value);
+        setChange(sampleData.change);
+        setTrend(sampleData.change.includes('-') ? 'down' : 'up');
       } catch (error) {
         console.error('Error fetching revenue data:', error);
+      } finally {
+        setLoading(false);  // Simulate API call completion
       }
     };
 
     fetchData();
   }, [apiEndpoint]);
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-6 flex items-center justify-between space-x-4">
+        <div className="flex flex-col">
+          <div className="flex items-center text-sm font-semibold text-gray-700">
+            <span className="material-icons mr-2 text-gray-400">hourglass_empty</span>
+            {title}
+          </div>
+          <div className="text-2xl font-bold text-gray-800 mt-2">Loading...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 flex items-center justify-between space-x-4">
@@ -32,7 +57,9 @@ const RevenueCard = ({ title, apiEndpoint, color, icon }) => {
           {title}
         </div>
         <p className="text-2xl font-bold text-gray-800 mt-2">{value}</p>
-        <p className={`text-xs mt-1 text-${color === 'green' ? 'green' : 'red'}-500`}>
+        <p
+          className={`text-xs mt-1 ${trend === 'up' ? 'text-green-500' : 'text-red-500'}`}
+        >
           {trend === 'up' ? '↑' : '↓'} {change} vs last month
         </p>
       </div>
@@ -41,7 +68,7 @@ const RevenueCard = ({ title, apiEndpoint, color, icon }) => {
           <path
             d={`M0 40 Q 25 ${trend === 'up' ? '10' : '30'}, 50 40 T 100 ${trend === 'up' ? '10' : '30'}`}
             fill="transparent"
-            stroke={color === 'green' ? '#34D399' : '#F87171'}
+            stroke={trend === 'up' ? '#34D399' : '#F87171'} // Dynamic stroke color
             strokeWidth="2"
           />
         </svg>
