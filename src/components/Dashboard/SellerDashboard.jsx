@@ -3,7 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
 import SellerNavbar from './seller-Components/SellerNavbar';
-import DashboardCard from './seller-Components/DashboardCard';
+import RevenueCard from './seller-Components/RevenueCard';
+import SalesCard from './seller-Components/SalesCard';
+import TotalProductsCard from './seller-Components/TotalProductsCard';
 import OrderSummary from './seller-Components/OrderSummary';
 import PaymentSummary from './seller-Components/PaymentSummary';
 import ReviewOrders from './seller-Components/ReviewOrders';
@@ -31,9 +33,9 @@ const SellerDashboard = () => {
           <div className="space-y-6">
             {/* Top Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <DashboardCard title="Total Orders" value="400" change="↑ 10%" color="green" icon="shopping_cart" />
-              <DashboardCard title="Total Sell" value="₹42.5L" change="↓ 5%" color="red" icon="attach_money" />
-              <DashboardCard title="Total Products" value="452" change="↑ 23" color="green" icon="inventory" />
+              <RevenueCard title="Total Orders" value="400" change="↑ 10%" color="green" icon="shopping_cart" />
+              <SalesCard title="Total Sell" value="₹42.5L" change="↓ 5%" color="red" icon="attach_money" />
+              <TotalProductsCard title="Total Products" value="452" change="↑ 23" color="green" icon="inventory" />
             </div>
 
             {/* Order Summary & Payment Summary */}
