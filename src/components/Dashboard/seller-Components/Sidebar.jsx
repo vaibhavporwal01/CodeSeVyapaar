@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -17,19 +16,19 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sidebar-container bg-white h-screen w-60 shadow-lg">
-      <ul className="menu-list p-4 space-y-2">
+    <div className="bg-white h-screen w-60 shadow-lg p-4 flex flex-col">
+      <ul className="space-y-2">
         {menuItems.map((item) => (
           <li key={item.name}>
             <Link
               to={item.path}
-              className={`sidebar-item flex items-center space-x-3 p-2 rounded-lg ${
-                active === item.path ? 'active' : 'hover:bg-gray-200'
+              className={`flex items-center space-x-3 p-2 rounded-lg transition-colors duration-300 ${
+                active === item.path ? 'bg-indigo-100 text-indigo-600' : 'hover:bg-gray-200'
               }`}
               onClick={() => setActive(item.path)}
             >
-              <span className="icon text-lg">{item.icon}</span>
-              <span className="label">{item.name}</span>
+              <span className="text-lg">{item.icon}</span>
+              <span>{item.name}</span>
             </Link>
           </li>
         ))}

@@ -1,7 +1,7 @@
 // src/pages/SellerDashboard.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Sidebar from '../Sidebar/Sidebar';
+import Sidebar from './seller-Components/Sidebar';
 import SellerNavbar from './seller-Components/SellerNavbar';
 import RevenueCard from './seller-Components/RevenueCard';
 import SalesCard from './seller-Components/SalesCard';
