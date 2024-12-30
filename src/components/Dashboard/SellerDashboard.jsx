@@ -9,6 +9,8 @@ import TotalProductsCard from './seller-Components/TotalProductsCard';
 import OrderSummary from './seller-Components/OrderSummary';
 import PaymentSummary from './seller-Components/PaymentSummary';
 import ReviewOrders from './seller-Components/ReviewOrders';
+import BulkBuy from './seller-Components/BulkBuy';
+
 
 const SellerDashboard = () => {
   return (
@@ -46,6 +48,12 @@ const SellerDashboard = () => {
 
             {/* Review Orders */}
             <ReviewOrders />
+
+            {/* Additional Features */}
+            <div className="space-y-6">
+              {/* BulkBuy Component */}
+              <BulkBuy />
+            </div>
           </div>
         </div>
       </div>
