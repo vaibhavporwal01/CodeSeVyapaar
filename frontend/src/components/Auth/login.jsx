@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const AuthForm = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Initialize the navigate function
   const [isRegister, setIsRegister] = useState(true);
 
   useEffect(() => {
@@ -27,10 +28,31 @@ const AuthForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const validateForm = () => {
+    // Check if all required fields are filled
+    if (
+      !formData.email ||
+      !formData.password ||
+      (isRegister && (!formData.name || !formData.phone)) || // Name and phone required only for registration
+      (isRegister && !formData.userType) ||
+      (isRegister && !formData.verificationMethod)
+    ) {
+      return false; // Form is not valid
+    }
+    return true; // All fields are filled
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const action = isRegister ? "Registered" : "Logged in";
     console.log(`${action}:`, formData);
+
+    if (validateForm()) {
+      // Redirect to OTP verification page after registration
+      navigate("/otp-verification");
+    } else {
+      alert("Please fill out all required fields.");
+    }
   };
 
   return (

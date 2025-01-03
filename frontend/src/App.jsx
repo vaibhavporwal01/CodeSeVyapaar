@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './components/Auth/login';
+import OTPVerification from './components/Auth/Otp_Verification';
 import Navbar from './components/Navbar'; // Global Navbar
 import SellerRegistration from './components/Auth/SellerRegistration';
 import UserDashboard from './components/Dashboard/UserDashboard';
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/otp-verification" element={<OTPVerification />} /> {/* New Route */}
         <Route path="/seller-registration" element={<SellerRegistration />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/seller-dashboard" element={<SellerDashboard />} />
