@@ -6,6 +6,9 @@ import Navbar from './components/Navbar'; // Global Navbar
 import SellerRegistration from './components/Auth/SellerRegistration';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
+import TemplateSelector from "./components/new_product/TemplateSelector";
+import CustomTemplateBuilder from './components/new_product/TemplateBuilder';
+import Preview from './components/new_product/PreviewPage';
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
         <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/seller-dashboard" element={<SellerDashboard />} />
         <Route path="/dashboard" element={<SellerDashboard />} />
+        <Route path="/add-product" element={<TemplateSelector />} />
+        <Route path="/custom-template" element={<CustomTemplateBuilder />} />
+        <Route path="/preview" element={<Preview />} />
       </Routes>
     </Router>
   );
