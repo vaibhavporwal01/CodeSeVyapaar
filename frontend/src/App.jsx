@@ -3,11 +3,12 @@ import HomePage from './pages/HomePage';
 import LoginPage from './components/Auth/login';
 import OTPVerification from './components/Auth/Otp_Verification';
 import SellerRegistration from './components/Auth/SellerRegistration';
+import OrderPage from './components/Dashboard/seller-Components/order/orderpage';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
-import TemplateSelector from "./components/new_product/TemplateSelector";
-import CustomTemplateBuilder from './components/new_product/TemplateBuilder';
-import Preview from './components/new_product/PreviewPage';
+import TemplateSelector from "./components/Dashboard/new_product/TemplateSelector";
+import CustomTemplateBuilder from './components/Dashboard/new_product/TemplateBuilder';
+import Preview from './components/Dashboard/new_product/PreviewPage';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/seller-registration" element={<SellerRegistration />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/dashboard" element={<SellerDashboard />} />
-        <Route path="/dashboard" element={<SellerDashboard />} />
+        <Route path="/orders" element={<OrderPage />} />
         <Route path="/add-product" element={<TemplateSelector />} />
         <Route path="/custom-template" element={<CustomTemplateBuilder />} />
         <Route path="/preview" element={<Preview />} />
