@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = ({ isOpen }) => {
-  const location = useLocation();
-  const [active, setActive] = useState(location.pathname); // Track active state based on the current route
+const Sidebar = () => {
+  const location = useLocation(); // Get current route
+  const [active, setActive] = useState(location.pathname); // Set active state based on the current route
 
   const menuItems = [
     { name: 'Dashboard', icon: '📊', path: '/dashboard' },
@@ -16,9 +16,7 @@ const Sidebar = ({ isOpen }) => {
   ];
 
   return (
-    <div
-      className={`bg-white h-screen transition-all duration-300 ease-in-out p-4 flex flex-col ${isOpen ? 'w-60 opacity-100' : 'w-0 opacity-0'} ${isOpen ? '' : 'hidden'}`}
-    >
+    <div className="bg-white h-screen w-60 shadow-lg p-4 flex flex-col">
       <ul className="space-y-2">
         {menuItems.map((item) => (
           <li key={item.name}>
@@ -29,10 +27,8 @@ const Sidebar = ({ isOpen }) => {
               }`}
               onClick={() => setActive(item.path)}
             >
-              {/* Icon is always visible */}
               <span className="text-lg">{item.icon}</span>
-              {/* Only show text when sidebar is open */}
-              {isOpen && <span>{item.name}</span>}
+              <span>{item.name}</span>
             </Link>
           </li>
         ))}
