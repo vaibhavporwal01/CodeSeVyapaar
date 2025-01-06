@@ -1,4 +1,7 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // useNavigate for navigation
+import { toast } from 'react-toastify';
 
 const SellerRegistration = () => {
   const [shopName, setShopName] = useState('');
@@ -7,17 +10,38 @@ const SellerRegistration = () => {
   const [address, setAddress] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [password, setPassword] = useState('');
-  const [file, setFile] = useState(null); // For file upload
+  const [verificationMethod, setVerificationMethod] = useState('email'); // Default to 'email'
+  const navigate = useNavigate(); // Initialize navigate for redirection
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Set the selected file
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setVerificationMethod(value); // Update the state for verificationMethod
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Handle seller registration logic here (e.g., send form data to the server)
-    console.log('Seller Registration:', { shopName, phoneNumber, email, address, zipCode, password, file });
+    const data = {
+      name: shopName, // Use the correct state variable 'shopName'
+      email,
+      phone: `+91${phoneNumber}`,
+      password,
+      zipCode,
+      address,
+      verificationMethod,
+    };
+
+    try {
+      const res = await axios.post("http://localhost:3001/api/v1/seller/register", data, {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
+      });
+      
+      toast.success(res.data.message);
+      navigate(`/seller-otp-verification/${email}/+91${phoneNumber}`); // Correct navigation using navigate
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
   };
 
   return (
@@ -97,15 +121,43 @@ const SellerRegistration = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="fileUpload" className="block text-sm font-semibold">Upload File</label>
-            <input 
-              type="file" 
-              id="fileUpload" 
-              className="w-full p-2 border border-gray-300 rounded-md mt-2"
-              onChange={handleFileChange}
-              required
-            />
+          <div>
+            <p className="text-sm font-medium mb-2">Select Verification Method:</p>
+            <div className="flex items-center space-x-4">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="verificationMethod"
+                  value="email"
+                  checked={verificationMethod === "email"}
+                  onChange={handleInputChange}
+                  className="mr-2"
+                />
+                Email
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="verificationMethod"
+                  value="phone"
+                  checked={verificationMethod === "phone"}
+                  onChange={handleInputChange}
+                  className="mr-2"
+                />
+                Phone
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="verificationMethod"
+                  value="sms"
+                  checked={verificationMethod === "sms"}
+                  onChange={handleInputChange}
+                  className="mr-2"
+                />
+                SMS
+              </label>
+            </div>
           </div>
 
           <button 

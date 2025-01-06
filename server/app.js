@@ -7,6 +7,7 @@ const connection =require("./DataBase/dbConnection")
 const middlewareError = require('./middleware/errorHandler')
 const userRouter = require("./controllers/usercontroller")
 const sellerRouter = require("./controllers/sellercontroller")
+const { removeUnverifiedAccounts } = require('./authomation/removedUnverifiedData')
 
 
 dotenv.config({path : './config/.env'})
@@ -31,6 +32,7 @@ app.use("/api/v1/seller" , sellerRouter)
 
 
 connection()
+removeUnverifiedAccounts()
 
 app.use(middlewareError)
 

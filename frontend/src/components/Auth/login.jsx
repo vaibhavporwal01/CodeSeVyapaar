@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import axios from "axios";
+import  { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AuthForm = () => {
   const location = useLocation();
@@ -23,9 +25,11 @@ const AuthForm = () => {
     verificationMethod: "email",
   });
 
+  const [loading, setLoading] = useState(false); // Add loading state
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const validateForm = () => {
@@ -42,16 +46,50 @@ const AuthForm = () => {
     return true; // All fields are filled
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const action = isRegister ? "Registered" : "Logged in";
     console.log(`${action}:`, formData);
+    console.log(formData.userType);
 
-    if (validateForm()) {
-      // Redirect to OTP verification page after registration
-      navigate("/otp-verification");
-    } else {
-      alert("Please fill out all required fields.");
+    if (!validateForm()) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
+
+    setLoading(true); // Set loading to true during the API call
+
+    try {
+      const response = await axios.post(
+        isRegister ? "http://localhost:3001/api/v1/user/register" :formData.userType ==="buyer"? "http://localhost:3001/api/v1/user/login" : "http://localhost:3001/api/v1/seller/login",
+        {
+          name: isRegister ? formData.name : undefined,
+          email: formData.email,
+          password: formData.password,
+          phone: isRegister ? `+91${formData.phone}` : undefined,
+          role: isRegister ? formData.userType : undefined,
+          verificationMethod: isRegister ? formData.verificationMethod : undefined,
+        },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      toast.success(response.data.message);
+
+      if (isRegister) {
+        navigate(`/otp-verification/${formData.email}/+91${formData.phone}/${formData.userType}`);
+      } else if(formData.userType === "seller") {
+        // Redirect to homepage or dashboard after login
+        navigate("/dashboard");
+      }else{
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message || "An error occurred.");
+    } finally {
+      setLoading(false); // Set loading to false after the API call completes
     }
   };
 
@@ -125,7 +163,7 @@ const AuthForm = () => {
               />
             )}
 
-            {isRegister && (
+            
               <div className="flex items-center space-x-4">
                 <label className="flex items-center">
                   <input
@@ -150,7 +188,7 @@ const AuthForm = () => {
                   Seller
                 </label>
               </div>
-            )}
+            
 
             {isRegister && (
               <div>
@@ -197,8 +235,9 @@ const AuthForm = () => {
           <button
             type="submit"
             className="w-full mt-4 py-2 bg-blue-500 text-white rounded-lg font-medium text-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            disabled={loading} // Disable button during loading
           >
-            {isRegister ? "Sign Up" : "Log In"}
+            {loading ? "Loading..." : isRegister ? "Sign Up" : "Log In"}
           </button>
         </form>
 

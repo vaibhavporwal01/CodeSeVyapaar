@@ -3,10 +3,10 @@ import  { useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from "react-toastify";
 
-const OTPVerification = () => {
+const SellerOTPVerification = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""]);
   const navigate = useNavigate();  // React Router's useNavigate hook
-  const { email, phone , role } = useParams();
+  const { email, phone } = useParams();
   console.log(phone, email);
 
   const handleOtpChange = (index, value) => {
@@ -32,13 +32,13 @@ const OTPVerification = () => {
       phone,
     };
     await axios
-      .post("http://localhost:3001/api/v1/user/otp-verification", data, {
+      .post("http://localhost:3001/api/v1/seller/otp-verification", data, {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
         toast.success(res.data.message);
-        role === "buyer" ? navigate("/user-dashboard") : navigate("/seller-registration");
+        navigate("/seller-dashboard")
         
       })
       .catch((err) => {
@@ -48,7 +48,7 @@ const OTPVerification = () => {
   };
 
   const handleGoBack = () => {
-    navigate('/login');  // Navigates to '/login' when clicked
+    navigate('/seller-registration');  // Navigates to '/login' when clicked
   };
 
   return (
@@ -91,4 +91,4 @@ const OTPVerification = () => {
   );
 };
 
-export default OTPVerification;
+export default SellerOTPVerification;
